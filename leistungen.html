@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leistungen – Ambiente Licht</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#004225;color:#FAFAF8;overflow-x:hidden;line-height:1.6}
+a{text-decoration:none;color:inherit}
+img{display:block;width:100%;object-fit:cover}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,66,37,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,.12)}
+.logo{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;letter-spacing:2px;color:#FAFAF8}
+.logo span{color:#C9A84C}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:13px;color:rgba(250,250,248,.65);transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:#FAFAF8}
+.nav-btn{background:#C9A84C;color:#003a1f;padding:9px 22px;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s}
+.nav-btn:hover{background:#E8CC7A}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.burger span{width:22px;height:1.5px;background:#FAFAF8;display:block}
+.mob-menu{display:none;position:fixed;inset:0;background:#004225;z-index:300;flex-direction:column;justify-content:center;align-items:center;gap:28px}
+.mob-menu.on{display:flex}
+.mob-menu a{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;color:#FAFAF8}
+.mob-menu a:hover{color:#C9A84C}
+.mob-x{position:absolute;top:20px;right:20px;background:none;border:none;color:#FAFAF8;font-size:26px;cursor:pointer;padding:8px}
+
+/* SHARED */
+.sec-tag{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#C9A84C;margin-bottom:14px}
+.sec-tag::before{content:'';width:28px;height:1px;background:#C9A84C}
+.sec-h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(32px,4vw,52px);font-weight:600;color:#F0ECE4;line-height:1.1;letter-spacing:-0.5px}
+.sec-h2 em{font-style:italic;color:#C9A84C;font-weight:400}
+.btn-gold{background:#C9A84C;color:#003a1f;padding:13px 28px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:background .2s;display:inline-block;letter-spacing:.3px}
+.btn-gold:hover{background:#E8CC7A}
+.btn-outline{background:transparent;color:#F0ECE4;border:1px solid rgba(240,236,228,.28);padding:13px 28px;font-size:13px;cursor:pointer;transition:border-color .2s;display:inline-block}
+.btn-outline:hover{border-color:#F0ECE4}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+.reveal.on{opacity:1;transform:translateY(0)}
+
+/* PAGE HERO */
+.page-hero{padding:130px 48px 72px;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(201,168,76,.06) 0%,transparent 60%),#004225}
+.page-hero-inner{max-width:1100px;margin:0 auto}
+.page-h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(40px,6vw,72px);color:#F0ECE4;line-height:1.05;letter-spacing:-1.5px;margin-bottom:16px}
+.page-h1 span{color:#C9A84C}
+.page-sub{font-size:16px;font-weight:300;color:rgba(240,236,228,.6);max-width:520px;line-height:1.75}
+
+/* LEISTUNGEN GRID */
+.leistungen-sec{padding:80px 48px;background:#004225}
+.leistungen-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.leist-intro p{font-size:14px;font-weight:300;color:rgba(240,236,228,.6);line-height:1.8;margin-bottom:32px;max-width:360px}
+.leist-cards{display:flex;flex-direction:column}
+.leist-card{background:#1C5A48;padding:32px;border-left:3px solid transparent;transition:border-color .25s,background .25s;display:flex;gap:22px;align-items:flex-start;margin-bottom:2px}
+.leist-card:hover{border-color:#C9A84C;background:#225e4d}
+.leist-num{font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:300;color:rgba(201,168,76,.35);flex-shrink:0;width:28px;margin-top:2px}
+.leist-card-icon{margin-bottom:12px}
+.leist-card-icon svg{width:20px;height:20px;stroke:#C9A84C;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.leist-card-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:600;color:#F0ECE4;margin-bottom:8px}
+.leist-card-desc{font-size:13px;font-weight:300;color:rgba(240,236,228,.55);line-height:1.65}
+
+/* ANWENDUNGSBEREICHE */
+.anw-sec{background:#003a1f;padding:80px 48px}
+.anw-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+
+/* Gallery */
+.anw-gallery{position:relative;overflow:hidden}
+.anw-slides{display:flex;transition:transform .5s ease}
+.anw-slide{min-width:100%}
+.anw-slide img{width:100%;height:320px;object-fit:cover;display:block}
+.anw-controls{display:flex;gap:10px;margin-top:14px;align-items:center}
+.anw-arrow{width:36px;height:36px;border:1px solid rgba(201,168,76,.35);background:transparent;color:#C9A84C;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;font-size:16px}
+.anw-arrow:hover{background:rgba(201,168,76,.1);border-color:#C9A84C}
+.anw-dots{display:flex;gap:6px;margin-left:8px}
+.anw-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.3);cursor:pointer;transition:background .2s}
+.anw-dot.active{background:#C9A84C}
+
+.anw-categories{display:flex;flex-direction:column;gap:28px}
+.anw-cat-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:600;color:#F0ECE4;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(201,168,76,.2)}
+.anw-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.anw-list li{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:300;color:rgba(240,236,228,.65)}
+.anw-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:#C9A84C;flex-shrink:0}
+
+/* NACHHALTIGKEIT */
+.nach-sec{background:#004225;padding:80px 48px}
+.nach-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:64px;align-items:start}
+.nach-subtitle{font-size:14px;font-weight:300;color:rgba(240,236,228,.5);margin-bottom:28px;font-style:italic}
+.nach-intro{font-size:14px;font-weight:300;color:rgba(240,236,228,.65);line-height:1.85;margin-bottom:0}
+.nach-divider{height:1px;background:rgba(201,168,76,.18);margin:28px 0}
+.nach-block-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:600;color:#F0ECE4;margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.nach-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid #C9A84C;color:#C9A84C;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;flex-shrink:0}
+.nach-block-text{font-size:13.5px;font-weight:300;color:rgba(240,236,228,.65);line-height:1.8;margin-bottom:14px}
+.nach-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.nach-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;font-weight:300;color:rgba(240,236,228,.7);line-height:1.6}
+.nach-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:#C9A84C;flex-shrink:0;margin-top:7px}
+
+/* Sidebar */
+.nach-sidebar{display:flex;flex-direction:column;gap:14px;position:sticky;top:80px}
+.nach-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.nach-stat{background:#1C5A48;padding:20px 16px;text-align:center}
+.nach-stat-val{font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:300;color:#C9A84C;line-height:1;margin-bottom:6px}
+.nach-stat-val sup{font-size:15px}
+.nach-stat-lbl{font-size:10px;font-weight:500;color:rgba(240,236,228,.5);text-transform:uppercase;letter-spacing:1px;line-height:1.4}
+.nach-box{background:#1C5A48;padding:24px;border-left:3px solid #C9A84C}
+.nach-box h4{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;font-weight:600;color:#F0ECE4;margin-bottom:10px}
+.nach-box p{font-size:13px;font-weight:300;color:rgba(240,236,228,.6);line-height:1.65}
+.nach-cta-box{background:#C9A84C;padding:24px;text-align:center}
+.nach-cta-box p{font-size:13px;font-weight:400;color:#003a1f;line-height:1.6;margin-bottom:16px}
+.nach-cta-box a{display:inline-block;background:#003a1f;color:#F0ECE4;padding:11px 22px;font-size:13px;font-weight:600;transition:background .2s}
+.nach-cta-box a:hover{background:#004225}
+
+/* ABLAUF */
+.ablauf-sec{background:#003a1f;padding:80px 48px}
+.ablauf-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.ablauf-intro p{font-size:14px;font-weight:300;color:rgba(240,236,228,.6);line-height:1.8;margin-bottom:32px;max-width:360px}
+.ablauf-steps{display:flex;flex-direction:column}
+.ablauf-step{padding:24px 0;border-bottom:1px solid rgba(201,168,76,.15);display:flex;gap:20px;align-items:flex-start}
+.ablauf-step:first-child{border-top:1px solid rgba(201,168,76,.15)}
+.ablauf-n{font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;font-weight:300;color:rgba(201,168,76,.35);flex-shrink:0;width:26px;line-height:1.3}
+.ablauf-t{font-size:14px;font-weight:600;color:#F0ECE4;margin-bottom:6px}
+.ablauf-d{font-size:13px;font-weight:300;color:rgba(240,236,228,.55);line-height:1.65}
+
+/* CTA FINAL */
+.cta-final{background:#C9A84C;padding:80px 24px;text-align:center}
+.cta-final h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(32px,4vw,52px);font-weight:600;color:#003a1f;line-height:1.1;margin-bottom:14px;letter-spacing:-0.5px}
+.cta-final p{font-size:15px;color:rgba(0,58,31,.65);margin-bottom:36px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.7}
+.btn-dark{background:#003a1f;color:#F0ECE4;padding:14px 30px;font-size:13px;font-weight:600;display:inline-block;transition:background .2s;margin:0 6px}
+.btn-dark:hover{background:#004225}
+
+/* FOOTER */
+footer{background:#021a0e;padding:52px 48px 24px}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:48px;margin-bottom:44px}
+.fc2 h4{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#C9A84C;margin-bottom:14px}
+.fc2 ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.fc2 li a{font-size:13px;color:rgba(250,250,248,.55);transition:color .2s}
+.fc2 li a:hover{color:#FAFAF8}
+.fc2 .ci{font-size:13px;color:rgba(250,250,248,.55);line-height:1.9}
+.fc2 .ci a{color:#C9A84C}
+.fbot{border-top:1px solid rgba(250,250,248,.07);padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.fbot p{font-size:12px;color:rgba(250,250,248,.28)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  nav{padding:0 24px}.nav-links,.nav-btn{display:none}.burger{display:flex}
+  .page-hero{padding:110px 24px 56px}
+  .leistungen-sec,.anw-sec,.nach-sec,.ablauf-sec{padding:60px 24px}
+  .leistungen-inner,.anw-inner,.nach-inner,.ablauf-inner{grid-template-columns:1fr;gap:44px}
+  .nach-sidebar{position:static}
+  .nach-stat-grid{grid-template-columns:repeat(4,1fr)}
+  .ft{grid-template-columns:1fr 1fr;gap:28px}
+  footer{padding:40px 24px 20px}
+  .cta-final{padding:60px 20px}
+}
+@media(max-width:600px){
+  .nach-stat-grid{grid-template-columns:1fr 1fr}
+  .ft{grid-template-columns:1fr}
+  .leist-card{flex-direction:column;gap:12px;padding:24px 20px}
+  .anw-slide img{height:220px}
+  .page-h1{font-size:40px}
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mob">
+  <button class="mob-x" onclick="document.getElementById('mob').classList.remove('on')">✕</button>
+  <a href="index.html" onclick="document.getElementById('mob').classList.remove('on')">Home</a>
+  <a href="leistungen.html" onclick="document.getElementById('mob').classList.remove('on')">Leistungen</a>
+  <a href="projekte.html" onclick="document.getElementById('mob').classList.remove('on')">Projekte</a>
+  <a href="ueber-uns.html" onclick="document.getElementById('mob').classList.remove('on')">Über uns</a>
+  <a href="kontakt.html" onclick="document.getElementById('mob').classList.remove('on')">Kontakt</a>
+  <a href="kontakt.html" class="btn-gold" style="margin-top:8px;padding:14px 32px;font-size:15px">Beratung anfragen</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">AMBIENTE<span>LICHT</span></a>
+  <ul class="nav-links">
+    <li><a href="leistungen.html" class="active">Leistungen</a></li>
+    <li><a href="projekte.html">Projekte</a></li>
+    <li><a href="ueber-uns.html">Über uns</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+  </ul>
+  <button class="nav-btn" onclick="location.href='kontakt.html'">Beratung anfragen</button>
+  <button class="burger" onclick="document.getElementById('mob').classList.add('on')"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner reveal">
+    <div class="sec-tag">Leistungen</div>
+    <h1 class="page-h1">Licht das<br><span>gestaltet.</span></h1>
+    <p class="page-sub">Unsere Arbeit beginnt nicht mit Produkten, sondern mit dem Verständnis für Raum, Architektur und Atmosphäre. Jedes Lichtkonzept wird individuell entwickelt.</p>
+  </div>
+</div>
+
+<!-- UNSERE LEISTUNGEN -->
+<section class="leistungen-sec">
+  <div class="leistungen-inner">
+    <div class="leist-intro reveal">
+      <div class="sec-tag">Unsere Leistungen</div>
+      <h2 class="sec-h2" style="margin-bottom:20px">Unsere<br><em>Leistungen</em></h2>
+      <p>Unsere Arbeit beginnt nicht mit Produkten, sondern mit dem Verständnis für Raum, Architektur und Atmosphäre. Jedes Lichtkonzept wird individuell entwickelt, präzise geplant und fachgerecht umgesetzt.</p>
+      <a href="kontakt.html" class="btn-gold">Kostenloses Konzept anfragen</a>
+    </div>
+    <div class="leist-cards reveal">
+      <div class="leist-card">
+        <div class="leist-num">01</div>
+        <div>
+          <div class="leist-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div>
+          <div class="leist-card-title">Lichtplanung & Konzept</div>
+          <div class="leist-card-desc">Massgeschneidertes Beleuchtungskonzept mit 2D-Plänen, 3D-Visualisierungen und detaillierter Kabel- und Verlegeplanung.</div>
+        </div>
+      </div>
+      <div class="leist-card">
+        <div class="leist-num">02</div>
+        <div>
+          <div class="leist-card-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+          <div class="leist-card-title">Installation</div>
+          <div class="leist-card-desc">Fachgerecht, unsichtbar und maximal witterungsgeschützt. Vollständig versiegelt, IP68-zertifiziert, ohne Steckverbinder.</div>
+        </div>
+      </div>
+      <div class="leist-card">
+        <div class="leist-num">03</div>
+        <div>
+          <div class="leist-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="leist-card-title">Garantie & Qualität</div>
+          <div class="leist-card-desc">10 Jahre Vollgarantie — die längste in der Schweiz. Handgefertigt in England aus Aluminium, Edelstahl und Messing.</div>
+        </div>
+      </div>
+      <div class="leist-card">
+        <div class="leist-num">04</div>
+        <div>
+          <div class="leist-card-icon"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
+          <div class="leist-card-title">Betreuung & Wartung</div>
+          <div class="leist-card-desc">Langfristige Pflege, Anpassung und Erweiterung Ihrer Anlage. 25 Jahre Ersatzteilversorgung garantiert.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANWENDUNGSBEREICHE -->
+<section class="anw-sec" id="anwendungsbereiche">
+  <div class="anw-inner">
+    <div class="reveal">
+      <div class="sec-tag">Anwendungsbereiche</div>
+      <h2 class="sec-h2" style="margin-bottom:18px">Anwendungs-<br><em>bereiche</em></h2>
+      <p style="font-size:14px;font-weight:300;color:rgba(240,236,228,.6);line-height:1.8;margin-bottom:32px">Licht wird gezielt dort eingesetzt, wo es Orientierung, Sicherheit und Atmosphäre schafft. Jeder Bereich wird individuell betrachtet und harmonisch in das Gesamtbild von Garten und Architektur integriert.</p>
+      <div class="anw-gallery">
+        <div class="anw-slides" id="slides">
+          <div class="anw-slide"><img src="https://static.wixstatic.com/media/a51a4c_da1492dc6d72475aa36d49c0215562bb~mv2.jpg" alt="Projekt 1"></div>
+          <div class="anw-slide"><img src="https://static.wixstatic.com/media/a51a4c_fbc41aaf03a8483dbf99565da8cdd62a~mv2.jpeg" alt="Projekt 2"></div>
+          <div class="anw-slide"><img src="https://static.wixstatic.com/media/a51a4c_65bc371199494b3493b9d7d8bf8cf532~mv2.jpeg" alt="Projekt 3"></div>
+          <div class="anw-slide"><img src="https://static.wixstatic.com/media/a51a4c_08894aa6b2754441839155cfef681acb~mv2.jpg" alt="Projekt 4"></div>
+          <div class="anw-slide"><img src="https://static.wixstatic.com/media/a51a4c_920eac99070143369dfe601af79d7c18~mv2.jpg" alt="Projekt 5"></div>
+          <div class="anw-slide"><img src="https://static.wixstatic.com/media/a51a4c_f919a619e5e94885814d53bb3110d73a~mv2.jpg" alt="Projekt 6"></div>
+          <div class="anw-slide"><img src="https://static.wixstatic.com/media/a51a4c_f73c388972df4aff8b2c7d1edbc26509~mv2.jpg" alt="Projekt 7"></div>
+        </div>
+        <div class="anw-controls">
+          <button class="anw-arrow" onclick="changeSlide(-1)">&#8592;</button>
+          <button class="anw-arrow" onclick="changeSlide(1)">&#8594;</button>
+          <div class="anw-dots" id="dots"></div>
+        </div>
+      </div>
+    </div>
+    <div class="anw-categories reveal">
+      <div>
+        <div class="anw-cat-title">Planung & Zusammenarbeit</div>
+        <ul class="anw-list"><li>Aussenbeleuchtung für Architekten</li><li>Gartenbeleuchtung für Elektriker</li><li>Licht im Garten- und Landschaftsbau</li></ul>
+      </div>
+      <div>
+        <div class="anw-cat-title">Beleuchtungslösungen</div>
+        <ul class="anw-list"><li>Aussenbeleuchtung</li><li>Gartenbeleuchtung</li><li>Terrassenbeleuchtung</li><li>Eingangsbeleuchtung</li><li>Einfahrtsbeleuchtung</li><li>Wegbeleuchtung</li></ul>
+      </div>
+      <div>
+        <div class="anw-cat-title">Wasser & Akzente</div>
+        <ul class="anw-list"><li>Schwimmbadbeleuchtung</li><li>Brunnenbeleuchtung</li><li>Teichbeleuchtung</li></ul>
+      </div>
+      <div>
+        <div class="anw-cat-title">Gesamtkonzepte</div>
+        <ul class="anw-list"><li>Landschaftsbeleuchtung</li><li>Objektbeleuchtung</li><li>Lichtkonzepte für Liegenschaften</li><li>Hotelbeleuchtung Aussenbereich</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NACHHALTIGKEIT -->
+<section class="nach-sec" id="nachhaltigkeit">
+  <div class="nach-inner">
+    <div class="reveal">
+      <div class="sec-tag">Nachhaltigkeit</div>
+      <h2 class="sec-h2" style="margin-bottom:8px">Lichtverschmutzung<br><em>reduzieren</em></h2>
+      <p class="nach-subtitle">Nachhaltige Aussenbeleuchtung – weniger ist mehr</p>
+      <p class="nach-intro">Die richtige Aussenbeleuchtung bietet zahlreiche Möglichkeiten, Gärten, Terrassen und Wege stilvoll hervorzuheben. Oft werden dabei die negativen Auswirkungen auf Umwelt, Fauna und Flora unterschätzt.</p>
+      <div class="nach-divider"></div>
+      <div>
+        <div class="nach-block-title"><span class="nach-num">1</span>Weniger ist mehr – gezielte Beleuchtung</div>
+        <p class="nach-block-text">Zu helle oder blendende Beleuchtung stört die natürliche Umgebung. Entscheidend ist eine gezielt eingesetzte Lichtmenge, angepasst an den jeweiligen Bereich:</p>
+        <ul class="nach-list"><li>Orientierungs-, Weg- und Treppenbeleuchtung: 74–220 Lumen sind vollkommen ausreichend</li><li>Gezielte Lichtstrahlen statt Flutlicht — Streulicht und unkontrolliertes Licht vermeiden</li></ul>
+      </div>
+      <div class="nach-divider"></div>
+      <div>
+        <div class="nach-block-title"><span class="nach-num">2</span>Warmes Licht für Mensch und Natur</div>
+        <p class="nach-block-text">Empfohlen wird eine warme Lichttemperatur unter 3000 Kelvin. Besonders geeignet ist 1800 Kelvin:</p>
+        <ul class="nach-list"><li>Schonend für Pflanzen und Tiere</li><li>Reduziert die Beeinträchtigung des natürlichen Tag-Nacht-Rhythmus</li><li>Sorgt für eine ruhige, elegante und natürliche Lichtstimmung</li></ul>
+      </div>
+      <div class="nach-divider"></div>
+      <div>
+        <div class="nach-block-title"><span class="nach-num">3</span>Hochwertige & langlebige Materialien</div>
+        <p class="nach-block-text">Für dauerhaft zuverlässige Aussenbeleuchtung eignen sich ausschliesslich wetterbeständige Materialien:</p>
+        <ul class="nach-list"><li>Edelstahl (Chromstahl)</li><li>Kupfer, Messing oder Bronze</li><li>Eloxiertes Aluminium</li></ul>
+        <p class="nach-block-text" style="margin-top:14px">Vermeiden Sie Stecksysteme — setzen Sie auf Löt-Schrumpfverbindungen und Leuchten mit austauschbaren Lichtquellen.</p>
+      </div>
+    </div>
+    <div class="nach-sidebar reveal">
+      <div class="nach-stat-grid">
+        <div class="nach-stat"><div class="nach-stat-val">&lt;3000<sup>K</sup></div><div class="nach-stat-lbl">Empfohlene Lichttemperatur</div></div>
+        <div class="nach-stat"><div class="nach-stat-val">1800<sup>K</sup></div><div class="nach-stat-lbl">Optimal für Natur</div></div>
+        <div class="nach-stat"><div class="nach-stat-val">74<sup>lm</sup></div><div class="nach-stat-lbl">Min. Weglicht</div></div>
+        <div class="nach-stat"><div class="nach-stat-val">IP<sup>68</sup></div><div class="nach-stat-lbl">Schutzklasse</div></div>
+      </div>
+      <div class="nach-box"><h4>Warum Ambiente Licht?</h4><p>Unsere Leuchten sind speziell auf nachhaltige, naturverträgliche Beleuchtung ausgelegt. 12-Volt-Technik, warme Lichtfarben und modularer Aufbau — für Jahrzehnte.</p></div>
+      <div class="nach-box"><h4>IP68 — vollständig versiegelt</h4><p>Keine Steckverbinder, keine Feuchtigkeitseintritte. Jede Leuchte wird submersibel getestet bevor sie installiert wird.</p></div>
+      <div class="nach-box"><h4>25 Jahre Ersatzteile</h4><p>Kein Wegwerfen nach 5 Jahren. Jede Komponente ist einzeln austauschbar und bleibt 25 Jahre verfügbar.</p></div>
+      <div class="nach-cta-box"><p>Möchten Sie eine nachhaltige Beleuchtung für Ihren Garten?</p><a href="kontakt.html">Kostenloses Konzept anfragen</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABLAUF -->
+<section class="ablauf-sec" id="ablauf">
+  <div class="ablauf-inner">
+    <div class="ablauf-intro reveal">
+      <div class="sec-tag">Unser Ablauf</div>
+      <h2 class="sec-h2" style="margin-bottom:18px">So arbeiten<br><em>wir</em></h2>
+      <p>Unsere Leistungen folgen einem klaren Anspruch: Licht nicht technisch zu denken, sondern als Teil von Architektur und Atmosphäre. Jede Lösung entsteht individuell und wird mit höchster Sorgfalt umgesetzt.</p>
+      <a href="kontakt.html" class="btn-gold" style="margin-top:32px">Zum Ablauf</a>
+    </div>
+    <div class="ablauf-steps reveal">
+      <div class="ablauf-step"><div class="ablauf-n">01</div><div><div class="ablauf-t">Analyse & Beratung</div><div class="ablauf-d">Wir lernen Ihren Garten, seine Architektur und Nutzung kennen und besprechen Ihre Wünsche persönlich vor Ort.</div></div></div>
+      <div class="ablauf-step"><div class="ablauf-n">02</div><div><div class="ablauf-t">Individuelles Konzept</div><div class="ablauf-d">Auf Basis der Analyse entwickeln wir ein massgeschneidertes Lichtkonzept für Wege, Pflanzen, Flächen und Perspektiven.</div></div></div>
+      <div class="ablauf-step"><div class="ablauf-n">03</div><div><div class="ablauf-t">Präzise Umsetzung</div><div class="ablauf-d">Unsere Installation erfolgt fachgerecht, dezent integriert und maximal witterungsgeschützt — für langfristige Qualität.</div></div></div>
+      <div class="ablauf-step"><div class="ablauf-n">04</div><div><div class="ablauf-t">Langfristige Betreuung</div><div class="ablauf-d">Auch nach der Umsetzung bleiben wir Ihr Ansprechpartner für Anpassungen, Erweiterungen und Pflege Ihrer Anlage.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-final reveal">
+  <h2>Ihr Garten verdient das Beste.</h2>
+  <p>Kostenloses Beratungsgespräch & persönliches Beleuchtungskonzept — unverbindlich und kostenlos.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="kontakt.html" class="btn-dark">Jetzt Konzept anfragen</a>
+    <a href="projekte.html" class="btn-dark" style="background:#1C5A48">Projekte ansehen</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">
+    <div><a href="index.html" class="logo" style="display:block;margin-bottom:14px">AMBIENTE<span>LICHT</span></a><p style="font-size:13px;color:rgba(250,250,248,.35);line-height:1.75;max-width:240px">Exklusive Gartenbeleuchtung für private Gärten und hochwertige Liegenschaften in der Schweiz.</p></div>
+    <div class="fc2"><h4>Navigation</h4><ul><li><a href="leistungen.html">Leistungen</a></li><li><a href="projekte.html">Projekte</a></li><li><a href="ueber-uns.html">Über uns</a></li><li><a href="kontakt.html">Kontakt</a></li></ul></div>
+    <div class="fc2"><h4>Leistungen</h4><ul><li><a href="#anwendungsbereiche">Anwendungsbereiche</a></li><li><a href="#nachhaltigkeit">Nachhaltigkeit</a></li><li><a href="#ablauf">Unser Ablauf</a></li><li><a href="kontakt.html">Beratung anfragen</a></li></ul></div>
+    <div class="fc2"><h4>Kontakt</h4><p class="ci">032 511 23 24<br><a href="mailto:info@qpautomation.ch">info@qpautomation.ch</a><br><br>Langfeldstrasse 24<br>4528 Zuchwil</p></div>
+  </div>
+  <div class="fbot"><p>© 2026 Ambiente Licht — by QP Automation AG</p><p>Datenschutz · Impressum</p></div>
+</footer>
+
+<script>
+let cur=0,tot=7;
+const slides=document.getElementById('slides'),dotsEl=document.getElementById('dots');
+for(let i=0;i<tot;i++){const d=document.createElement('div');d.className='anw-dot'+(i===0?' active':'');d.onclick=()=>goTo(i);dotsEl.appendChild(d)}
+function goTo(n){cur=(n+tot)%tot;slides.style.transform=`translateX(-${cur*100}%)`;document.querySelectorAll('.anw-dot').forEach((d,i)=>d.classList.toggle('active',i===cur))}
+function changeSlide(dir){goTo(cur+dir)}
+setInterval(()=>changeSlide(1),4500);
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on')}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

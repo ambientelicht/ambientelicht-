@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Über uns – Ambiente Licht</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#004225;color:#FAFAF8;overflow-x:hidden;line-height:1.6}
+a{text-decoration:none;color:inherit}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,66,37,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,.12)}
+.logo{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;letter-spacing:2px;color:#FAFAF8}
+.logo span{color:#C9A84C}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:13px;color:rgba(250,250,248,.65);transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:#FAFAF8}
+.nav-btn{background:#C9A84C;color:#003a1f;padding:9px 22px;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s}
+.nav-btn:hover{background:#E8CC7A}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.burger span{width:22px;height:1.5px;background:#FAFAF8;display:block}
+.mob-menu{display:none;position:fixed;inset:0;background:#004225;z-index:300;flex-direction:column;justify-content:center;align-items:center;gap:28px}
+.mob-menu.on{display:flex}
+.mob-menu a{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;color:#FAFAF8}
+.mob-menu a:hover{color:#C9A84C}
+.mob-x{position:absolute;top:20px;right:20px;background:none;border:none;color:#FAFAF8;font-size:26px;cursor:pointer;padding:8px}
+.sec-tag{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#C9A84C;margin-bottom:14px}
+.sec-tag::before{content:'';width:28px;height:1px;background:#C9A84C}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+.reveal.on{opacity:1;transform:translateY(0)}
+.btn-gold{background:#C9A84C;color:#003a1f;padding:13px 28px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:background .2s;display:inline-block}
+.btn-gold:hover{background:#E8CC7A}
+
+/* HERO */
+.page-hero{padding:130px 48px 80px;background:radial-gradient(ellipse 60% 50% at 30% 50%,rgba(201,168,76,.06) 0%,transparent 60%),#004225}
+.page-hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.page-h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(42px,5.5vw,70px);color:#F0ECE4;line-height:1.05;letter-spacing:-1.5px;margin-bottom:16px}
+.page-h1 em{font-style:italic;color:#C9A84C;font-weight:400}
+.page-sub{font-size:15px;font-weight:300;color:rgba(240,236,228,.6);line-height:1.8;font-style:italic}
+.hero-right{display:flex;flex-direction:column;gap:24px}
+.hero-stat{border-left:3px solid #C9A84C;padding:16px 20px;background:#1C5A48}
+.hero-stat-val{font-family:'Cormorant Garamond',Georgia,serif;font-size:42px;font-weight:300;color:#C9A84C;line-height:1;margin-bottom:4px}
+.hero-stat-val sup{font-size:20px}
+.hero-stat-lbl{font-size:12px;font-weight:500;color:rgba(240,236,228,.6);text-transform:uppercase;letter-spacing:1px}
+
+/* ABOUT SECTIONS */
+.about-sec{padding:80px 48px;background:#004225}
+.about-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.about-text h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(28px,3.5vw,44px);font-weight:600;color:#F0ECE4;line-height:1.15;margin-bottom:18px;letter-spacing:-0.5px}
+.about-text h2 em{font-style:italic;color:#C9A84C;font-weight:400}
+.about-text p{font-size:14px;font-weight:300;color:rgba(240,236,228,.65);line-height:1.85;margin-bottom:16px}
+.about-points{display:flex;flex-direction:column;gap:20px}
+.about-point{display:flex;gap:16px;align-items:flex-start;background:#1C5A48;padding:24px;border-top:2px solid transparent;transition:border-color .2s}
+.about-point:hover{border-color:#C9A84C}
+.about-point-icon{width:36px;height:36px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.about-point-icon svg{width:16px;height:16px;stroke:#C9A84C;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.about-point h4{font-size:14px;font-weight:600;color:#F0ECE4;margin-bottom:4px}
+.about-point p{font-size:13px;font-weight:300;color:rgba(240,236,228,.55);line-height:1.6;margin:0}
+
+/* HUDSON */
+.hudson-sec{background:#003a1f;padding:80px 48px}
+.hudson-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.hudson-text h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(28px,3.5vw,44px);font-weight:600;color:#F0ECE4;line-height:1.15;margin-bottom:8px;letter-spacing:-0.5px}
+.hudson-text h2 em{font-style:italic;color:#C9A84C;font-weight:400}
+.hudson-subtitle{font-size:13px;font-weight:300;color:rgba(240,236,228,.45);margin-bottom:24px;font-style:italic}
+.hudson-text p{font-size:14px;font-weight:300;color:rgba(240,236,228,.65);line-height:1.85;margin-bottom:16px}
+.hudson-tagline{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:400;font-style:italic;color:rgba(240,236,228,.5);border-left:3px solid rgba(201,168,76,.3);padding:12px 20px;margin:24px 0}
+.hudson-visual{background:#1C5A48;padding:48px 40px;border:1px solid rgba(201,168,76,.15);text-align:center}
+.hudson-logo-text{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;color:#F0ECE4;letter-spacing:3px;margin-bottom:8px}
+.hudson-logo-sub{font-size:11px;color:rgba(240,236,228,.4);letter-spacing:2px;text-transform:uppercase;margin-bottom:32px}
+.hudson-divider{height:1px;background:rgba(201,168,76,.2);margin:24px 0}
+.hudson-feat{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.hudson-feat svg{width:16px;height:16px;stroke:#C9A84C;fill:none;stroke-width:1.5;stroke-linecap:round;flex-shrink:0}
+.hudson-feat span{font-size:13px;font-weight:300;color:rgba(240,236,228,.65)}
+
+/* QP */
+.qp-sec{background:#004225;padding:80px 48px}
+.qp-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.qp-text h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(28px,3.5vw,44px);font-weight:600;color:#F0ECE4;line-height:1.15;margin-bottom:18px;letter-spacing:-0.5px}
+.qp-text h2 em{font-style:italic;color:#C9A84C;font-weight:400}
+.qp-text p{font-size:14px;font-weight:300;color:rgba(240,236,228,.65);line-height:1.85;margin-bottom:16px}
+.qp-box{background:#003a1f;padding:36px;border-left:3px solid #C9A84C}
+.qp-box-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#F0ECE4;letter-spacing:1px;margin-bottom:6px}
+.qp-box-sub{font-size:11px;color:rgba(240,236,228,.4);letter-spacing:2px;text-transform:uppercase;margin-bottom:24px}
+.qp-box p{font-size:13px;font-weight:300;color:rgba(240,236,228,.6);line-height:1.7;margin-bottom:20px}
+.qp-links{display:flex;flex-direction:column;gap:10px}
+.qp-link{display:flex;align-items:center;gap:10px;font-size:13px;color:#C9A84C;transition:opacity .2s}
+.qp-link:hover{opacity:.7}
+.qp-link svg{width:14px;height:14px;stroke:#C9A84C;fill:none;stroke-width:1.5;stroke-linecap:round;flex-shrink:0}
+
+/* CTA */
+.cta-final{background:#C9A84C;padding:80px 24px;text-align:center}
+.cta-final h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(32px,4vw,52px);font-weight:600;color:#003a1f;line-height:1.1;margin-bottom:14px;letter-spacing:-0.5px}
+.cta-final p{font-size:15px;color:rgba(0,58,31,.65);margin-bottom:36px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.7}
+.btn-dark{background:#003a1f;color:#F0ECE4;padding:14px 30px;font-size:13px;font-weight:600;display:inline-block;transition:background .2s;margin:0 6px}
+.btn-dark:hover{background:#004225}
+
+/* FOOTER */
+footer{background:#021a0e;padding:52px 48px 24px}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:48px;margin-bottom:44px}
+.fc2 h4{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#C9A84C;margin-bottom:14px}
+.fc2 ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.fc2 li a{font-size:13px;color:rgba(250,250,248,.55);transition:color .2s}
+.fc2 li a:hover{color:#FAFAF8}
+.fc2 .ci{font-size:13px;color:rgba(250,250,248,.55);line-height:1.9}
+.fc2 .ci a{color:#C9A84C}
+.fbot{border-top:1px solid rgba(250,250,248,.07);padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.fbot p{font-size:12px;color:rgba(250,250,248,.28)}
+.social-links{display:flex;gap:16px;margin-top:16px}
+.social-links a{font-size:12px;color:rgba(250,250,248,.4);transition:color .2s;letter-spacing:.5px;text-transform:uppercase}
+.social-links a:hover{color:#C9A84C}
+
+@media(max-width:1024px){
+  nav{padding:0 24px}.nav-links,.nav-btn{display:none}.burger{display:flex}
+  .page-hero{padding:110px 24px 64px}
+  .page-hero-inner,.about-inner,.hudson-inner,.qp-inner{grid-template-columns:1fr;gap:44px}
+  .about-sec,.hudson-sec,.qp-sec{padding:60px 24px}
+  .ft{grid-template-columns:1fr 1fr;gap:28px}
+  footer{padding:40px 24px 20px}
+  .cta-final{padding:60px 20px}
+}
+@media(max-width:600px){
+  .page-h1{font-size:40px}
+  .ft{grid-template-columns:1fr}
+  .hero-right{flex-direction:row;flex-wrap:wrap}
+  .hero-stat{flex:1;min-width:140px}
+  .cta-btns{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<div class="mob-menu" id="mob">
+  <button class="mob-x" onclick="document.getElementById('mob').classList.remove('on')">✕</button>
+  <a href="index.html" onclick="document.getElementById('mob').classList.remove('on')">Home</a>
+  <a href="leistungen.html" onclick="document.getElementById('mob').classList.remove('on')">Leistungen</a>
+  <a href="projekte.html" onclick="document.getElementById('mob').classList.remove('on')">Projekte</a>
+  <a href="ablauf.html" onclick="document.getElementById('mob').classList.remove('on')">Ablauf</a>
+  <a href="ueber-uns.html" onclick="document.getElementById('mob').classList.remove('on')">Über uns</a>
+  <a href="kontakt.html" onclick="document.getElementById('mob').classList.remove('on')">Kontakt</a>
+  <a href="kontakt.html" class="btn-gold" style="margin-top:8px;padding:14px 32px;font-size:15px">Beratung anfragen</a>
+</div>
+
+<nav>
+  <a href="index.html" class="logo">AMBIENTE<span>LICHT</span></a>
+  <ul class="nav-links">
+    <li><a href="leistungen.html">Leistungen</a></li>
+    <li><a href="projekte.html">Projekte</a></li>
+    <li><a href="ablauf.html">Ablauf</a></li>
+    <li><a href="ueber-uns.html" class="active">Über uns</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+  </ul>
+  <button class="nav-btn" onclick="location.href='kontakt.html'">Beratung anfragen</button>
+  <button class="burger" onclick="document.getElementById('mob').classList.add('on')"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="reveal">
+      <div class="sec-tag">Über uns</div>
+      <h1 class="page-h1">Über<br><em>AMBIENTE</em></h1>
+      <p class="page-sub">Lichtgestaltung mit Haltung, Erfahrung und Anspruch.</p>
+    </div>
+    <div class="hero-right reveal">
+      <div class="hero-stat">
+        <div class="hero-stat-val">10<sup>J</sup></div>
+        <div class="hero-stat-lbl">Vollgarantie auf alle Leuchten</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">25<sup>J</sup></div>
+        <div class="hero-stat-lbl">Ersatzteilversorgung garantiert</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">Nr.<sup>1</sup></div>
+        <div class="hero-stat-lbl">Einziger autorisierter Partner in Europa</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ÜBER AMBIENTE -->
+<section class="about-sec">
+  <div class="about-inner">
+    <div class="about-text reveal">
+      <div class="sec-tag">Wer wir sind</div>
+      <h2>Exklusive Gartenbeleuchtung<br>aus <em>Leidenschaft</em></h2>
+      <p>AMBIENTE steht für exklusive Gartenbeleuchtung und individuell entwickelte Lichtkonzepte für private Gärten und hochwertige Liegenschaften in der Schweiz. Als Marke der QP Automation AG verbinden wir zeitlose Ästhetik, handwerkliche Qualität und technische Präzision.</p>
+      <p>Unsere Lichtkonzepte entstehen nicht nach Schema, sondern aus dem Verständnis für Architektur, Natur und Raum. Wege, Terrassen, Pflanzen, Fassaden und Wasserflächen werden gezielt inszeniert — für Sicherheit, Atmosphäre und einen Garten, der auch nachts erlebbar wird.</p>
+    </div>
+    <div class="about-points reveal">
+      <div class="about-point">
+        <div class="about-point-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div>
+          <h4>Exklusivität & Qualität</h4>
+          <p>Als einziger autorisierter Installationspartner von Hudson Lighting in Europa arbeiten wir mit handgefertigten Premium-Leuchten aus England.</p>
+        </div>
+      </div>
+      <div class="about-point">
+        <div class="about-point-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div>
+        <div>
+          <h4>Sichere 12-Volt-Technik</h4>
+          <p>Vollständig versiegelt, wartungsarm und langlebig. Modular aufgebaut, reparierbar und mit langfristiger Ersatzteilverfügbarkeit.</p>
+        </div>
+      </div>
+      <div class="about-point">
+        <div class="about-point-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div>
+          <h4>Alles aus einer Hand</h4>
+          <p>Von der persönlichen Beratung über die Planung bis zur fachgerechten Umsetzung. Steuerbar manuell, per App oder automatisiert.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HUDSON LIGHTING -->
+<section class="hudson-sec">
+  <div class="hudson-inner">
+    <div class="hudson-text reveal">
+      <div class="sec-tag">Hudson Lighting</div>
+      <h2>Britische Handwerkskunst.<br><em>Neu definiert.</em></h2>
+      <p class="hudson-subtitle">Handgefertigte Aussenleuchten aus England</p>
+      <p>Hudson Lighting steht für echte, handgefertigte Aussenleuchten aus England. Jede Leuchte wird vollständig im eigenen Werk in Surrey gefertigt — präzise, langlebig und kompromisslos hochwertig.</p>
+      <p>Als einziger autorisierter Installationspartner von Hudson Lighting in Europa bringt AMBIENTE diese aussergewöhnliche Qualität in exklusive Gärten und Liegenschaften in der Schweiz.</p>
+      <div class="hudson-tagline">Zeitlose Materialien. Modulare Technik. Licht, das Jahrzehnte bleibt.</div>
+      <a href="kontakt.html" class="btn-gold">Mehr erfahren</a>
+    </div>
+    <div class="hudson-visual reveal">
+      <div class="hudson-logo-text">HUDSON</div>
+      <div class="hudson-logo-text" style="color:#C9A84C">LIGHTING</div>
+      <div class="hudson-logo-sub">Made in England · Surrey</div>
+      <div class="hudson-divider"></div>
+      <div class="hudson-feat"><svg viewBox="0 0 24 24"><path d="M3 8l3 3 7-7"/></svg><span>Handgefertigt in Surrey, England</span></div>
+      <div class="hudson-feat"><svg viewBox="0 0 24 24"><path d="M3 8l3 3 7-7"/></svg><span>IP68 vollständig wasserdicht</span></div>
+      <div class="hudson-feat"><svg viewBox="0 0 24 24"><path d="M3 8l3 3 7-7"/></svg><span>10 Jahre Vollgarantie</span></div>
+      <div class="hudson-feat"><svg viewBox="0 0 24 24"><path d="M3 8l3 3 7-7"/></svg><span>25 Jahre Ersatzteilverfügbarkeit</span></div>
+      <div class="hudson-feat"><svg viewBox="0 0 24 24"><path d="M3 8l3 3 7-7"/></svg><span>Einziger Partner in Europa</span></div>
+      <div class="hudson-feat"><svg viewBox="0 0 24 24"><path d="M3 8l3 3 7-7"/></svg><span>Aluminium, Edelstahl & Messing</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- QP AUTOMATION -->
+<section class="qp-sec">
+  <div class="qp-inner">
+    <div class="qp-text reveal">
+      <div class="sec-tag">Teil der QP Automation AG</div>
+      <h2>Teil der<br><em>QP Automation AG</em></h2>
+      <p>AMBIENTE ist eine Marke der QP Automation AG. Als Schweizer Unternehmen verbinden wir technische Präzision mit einem gestalterischen Anspruch und langjähriger Erfahrung im Aussenbereich.</p>
+      <p>Unsere Kunden profitieren von klaren Strukturen, verlässlicher Umsetzung und langfristiger Betreuung.</p>
+    </div>
+    <div class="qp-box reveal">
+      <div class="qp-box-title">QP AUTOMATION AG</div>
+      <div class="qp-box-sub">Schweizer Unternehmen</div>
+      <p>Technische Präzision, gestalterischer Anspruch und langjährige Erfahrung im Aussenbereich — vereint unter einem Dach.</p>
+      <div class="hudson-divider"></div>
+      <div class="qp-links">
+        <a href="https://www.instagram.com/qpautomation/" target="_blank" class="qp-link">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#C9A84C" stroke="none"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.facebook.com/people/QP-Geb%C3%A4udeautomation/61568073403912/" target="_blank" class="qp-link">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          Facebook
+        </a>
+        <a href="https://ch.linkedin.com/company/qp-geb%C3%A4udeautomation" target="_blank" class="qp-link">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-final reveal">
+  <h2>Ihr Garten verdient das Beste.</h2>
+  <p>Kostenloses Beratungsgespräch & persönliches Beleuchtungskonzept — unverbindlich und kostenlos.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="kontakt.html" class="btn-dark">Jetzt Konzept anfragen</a>
+    <a href="projekte.html" class="btn-dark" style="background:#1C5A48">Projekte ansehen</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">
+    <div>
+      <a href="index.html" class="logo" style="display:block;margin-bottom:14px">AMBIENTE<span>LICHT</span></a>
+      <p style="font-size:13px;color:rgba(250,250,248,.35);line-height:1.75;max-width:240px">Exklusive Gartenbeleuchtung für private Gärten und hochwertige Liegenschaften in der Schweiz.</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/qpautomation/" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/people/QP-Geb%C3%A4udeautomation/61568073403912/" target="_blank">Facebook</a>
+        <a href="https://ch.linkedin.com/company/qp-geb%C3%A4udeautomation" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+    <div class="fc2"><h4>Navigation</h4><ul><li><a href="leistungen.html">Leistungen</a></li><li><a href="projekte.html">Projekte</a></li><li><a href="ablauf.html">Ablauf</a></li><li><a href="ueber-uns.html">Über uns</a></li><li><a href="kontakt.html">Kontakt</a></li></ul></div>
+    <div class="fc2"><h4>Über uns</h4><ul><li><a href="ueber-uns.html">AMBIENTE</a></li><li><a href="ueber-uns.html">Hudson Lighting</a></li><li><a href="ueber-uns.html">QP Automation AG</a></li><li><a href="kontakt.html">Beratung anfragen</a></li></ul></div>
+    <div class="fc2"><h4>Kontakt</h4><p class="ci">032 511 23 24<br><a href="mailto:Info@qpautomation.ch">Info@qpautomation.ch</a><br><br>Langfeldstrasse 24<br>4528 Zuchwil</p></div>
+  </div>
+  <div class="fbot"><p>© 2026 Ambiente Licht — by QP Automation AG</p><p>Datenschutz · Impressum</p></div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on')}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
